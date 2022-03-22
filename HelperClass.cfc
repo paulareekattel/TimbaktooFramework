@@ -28,9 +28,8 @@ component {
         mail.send();
     }
 
-    function errorLoggingAndMessaging(any error, string getFunctionCalledName) {
-        writeLog(text="#error.message# - #error.diagnostics#", type="#error.information#", 
-                    file=getFunctionCalledName);
+    function errorLoggingAndMessaging(exception error, string getFunctionCalledName) {
+        writeLog(text="#error.message# - #error.detail#", file=getFunctionCalledName);
     
         savecontent variable="errortext" {
             writeOutput("An error occurred: http://#cgi.server_name##cgi.script_name#?#cgi.query_string#<br />Time: #dateFormat(now(), 'short')# #timeFormat(now(), 'short')#<br />", "html");

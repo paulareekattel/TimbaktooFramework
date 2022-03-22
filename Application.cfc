@@ -19,7 +19,7 @@ component {
         subsubsubmodule,
         subsubsubsubmodule    
     */
-    this.moduleDepthValidatorRegex = "\^((sub)?|(sub){1,4})module$\";
+    this.moduleDepthValidatorRegex = "^((sub)?|(sub){1,4})module$";
     
     application.VALID = 1;
     
@@ -56,8 +56,8 @@ component {
         return application.VALID;
     }
 
-    function onError(struct exception, string eventname) {
-        writeLog(text="#exception.message# - #exception.diagnostics# - #eventname#", type="#exception.information#", file=eventname);
+    function onError(exception, eventname) {
+        writeLog(text="#exception.message# - #exception.detail# - #eventname#", file=eventname);
     }
 
     function getAppModulesObject(struct object, string prefix) {
@@ -137,7 +137,7 @@ component {
     function validateModuleDepth(string stringToValidateModuleDepth) {
         try {
             var test = reMatch(this.moduleDepthValidatorRegex, stringToValidateModuleDepth);
-            if(test.length > 0) {
+            if(isArray(test) && arrayLen(test) > 0) {
                 return !application.VALID;
             }
         } catch(any error) {
