@@ -8,7 +8,7 @@ component {
     this.applicationTimeout = createTimespan(2,0,0,0);
 
     /*  Below is the empty module object which has a Welcome module only    */
-    this.modulesObject = CreateObject("component", "emptymoduleclass").init();
+    this.modulesObject = createObject("component", "emptymoduleclass").init();
     this.helperClassObject = createObject("component", "helperclass").init();
 
     /*
@@ -41,7 +41,7 @@ component {
     }
 
     function onRequestStart() {
-        request.key = variables.helperClassObject.readKey("request");
+        request.key = readKey("request");
         return application.VALID;
     }
 
@@ -71,7 +71,7 @@ component {
         if(validateModuleDepth(prefix) != application.VALID) {
             return object;
         }
-        /*
+        /* Need to code this
         for(var i in object) {
             if(isObject(object[i])) {
                 application[prefix][object[i]] = structNew();

@@ -32,7 +32,7 @@ component {
         writeLog(text="#error.message# - #error.diagnostics#", type="#error.information#", 
                     file=getFunctionCalledName);
     
-        savecontent(variable="errortext") {
+        savecontent variable="errortext" {
             writeOutput("An error occurred: http://#cgi.server_name##cgi.script_name#?#cgi.query_string#<br />Time: #dateFormat(now(), 'short')# #timeFormat(now(), 'short')#<br />", "html");
             writeDump(var=error,label='Error');
             writeDump(var=form,label='Form');
