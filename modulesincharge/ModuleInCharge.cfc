@@ -27,6 +27,9 @@ component {
         /*Empty Module Section Start*/
         this['Empty'] = structNew();
         this['Empty']['files'] = 'empty.cfm';
+
+        this['Empty']['SubModules'] = structNew();
+        this['Empty']['SubModules']['ModuleNames'] = '';
         /*Empty Module Section End*/
         return this;
     }
