@@ -1,9 +1,8 @@
 <cfoutput>Application Key:#application.key#</cfoutput>
-<cfoutput>#application.modulesList#</cfoutput><cfabort>
 <DocType !HTML>
 <html>
     <head>
-        <title>Login</title>
+        <title>Welcome</title>
         <style>
             body {
                 background-color: #74992e;
@@ -35,10 +34,7 @@
     </head>
     <body>
         <script type="text/javascript">
-            //var module = 
-            $(document).ready(function(){
-                //alert("hi paul");
-            })
+           
         </script>
         <div id="maindiv"><!--- Main DIV    --->
             <div id="header"></div><!---    Header Div  --->
