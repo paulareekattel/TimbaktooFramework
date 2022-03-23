@@ -1,5 +1,5 @@
-component name="TimbaktooFramework.modulesincharge.ModulesController" output=false {
-    private(name="TimbaktooFramework.modulesincharge.ModulesController") {
+component name="TimbaktooFramework.modulecontroller.ModuleController" output=false {
+    private(name="TimbaktooFramework.modulecontroller.ModuleController") {
         this.modules = "Root,Welcome,Login,Empty";
         this['Empty'] = createObject("component", "TimbaktooFramework.module.EmptyModule").init();
         this.subModuleArray = arrayNew(1);

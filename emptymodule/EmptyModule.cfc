@@ -14,7 +14,7 @@ component
             this.submodules = arrayNew(1); 
         }
 
-        private(name="TimbaktooFramework.modulesincharge.ModulesController") {
+        private(name="TimbaktooFramework.modulecontroller.ModuleController") {
             TimbaktooFramework.emptymodule.EmptyModule function init() 
             {
                 return this;
