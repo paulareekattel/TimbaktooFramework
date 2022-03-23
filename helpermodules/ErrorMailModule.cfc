@@ -1,30 +1,24 @@
-
-component {
+component name="TimbaktooFramework.helpermodules.ErrorMailModule" output=false{
     
-    function init() {
+    public TimbaktooFramework.helpermodules.ErrorMailModule function init() {
         return this;
     }
 
     function sendErrorEMail(string from, string to, string subject, 
                                 string type, string body, string attachment, string cc, string bcc) {
-        // Create an instance of the mail object
         var mail=new mail();
         
-        // Set it's properties
         mail.setSubject( subject );
         mail.setTo( to );
         mail.setFrom( from );
         mail.setCC( cc );
         mail.setBCC( bcc );
         
-        // Add an attachment
         mail.addParam( file=attachment );
         
-        // Add email body content in text and HTML formats
         mail.addPart( type="text", charset="utf-8", wraptext="72", body="This is a test message." );
         mail.addPart( type=type, charset="utf-8", body=body );
         
-        // Send the email
         mail.send();
     }
 
