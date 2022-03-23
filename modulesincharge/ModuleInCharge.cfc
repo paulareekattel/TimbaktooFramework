@@ -1,5 +1,5 @@
 
-component {
+component name="modulesincharge.ModuleInCharge" output=false{
 
     function init() {
         /*Main Modules Section Start*/

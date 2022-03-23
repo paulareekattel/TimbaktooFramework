@@ -8,7 +8,9 @@ component {
     this.applicationTimeout = createTimespan(2,0,0,0);
 
     /*  Below is the empty module object which has a Welcome module only    */
-    this.modulesObject = createObject("component", "emptymoduleclass").init();
+    this.modulesObject = arrayNew(1);
+    this.modulesInChargeObject = createObject("component", "modulesincharge.ModuleInCharge").init();
+    //createObject("component", "module.Module").init();
     this.helperClassObject = createObject("component", "helperclass").init();
 
     /*
@@ -60,8 +62,24 @@ component {
         writeLog(text="#exception.message# - #exception.detail# - #eventname#", file=eventname);
     }
 
-    function getAppModulesObject(struct object, string prefix) {
-        var subPrefix = "";
+    function getAppModulesObject(modulesincharge.modulesInChargeObject object) {
+        var ObjectIterator = structNew();
+        var j;
+        ObjectIterator = duplicate(object['Modules']);
+        for(var i in ObjectIterator) {
+            if(isStruct(i)) {
+                for(j = i['ModuleNames']) {
+                    
+                }
+            } else {
+
+            }
+        }
+
+    }
+
+    function backupgetAppModulesObject() {
+        /*var subPrefix = "";
         
         if(prefix == 'module') {
             subPrefix = 'submodule';
@@ -80,11 +98,22 @@ component {
                 application[prefix][object[i]] = "";
                 application[prefix][object[i]] = object[i];
             }
-        }*/
-        return application[prefix];
+        }*
+        return application[prefix];*/
     }
 
     function reloadAppModuleAndAppKey() {
+        try {
+            this.modulesObject = arrayNew(1);
+            this.modulesObject = getAppModulesObject(this.modulesInChargeObject);
+        } catch(any error) {
+            this.helperClassObject.errorLoggingAndMessaging(error, getFunctionCalledName());
+            rethrow;
+        }
+        return application.VALID;
+    }
+
+    function backupreloadAppModuleAndAppKey() {
         try {
             this.modulesObject = CreateObject("component", "modulesclass").init();
             this['modules'] = getAppModulesObject(this.modulesObject, 'module');

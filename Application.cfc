@@ -1,6 +1,6 @@
 
 component {
-    this.name = "TIMBAKTOO";
+    this.name = "TIMBAKTOOFRAMEWORK";
     this.sessionmanagement =  true;
     this.clientmanagement = true;
     this.sessionTimeout = createTimespan(0,0,20,0);
