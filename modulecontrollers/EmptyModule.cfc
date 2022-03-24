@@ -1,10 +1,10 @@
 component 
-    name="TimbaktooFramework.emptymodule.EmptyModule" 
+    name="TimbaktooFramework.modulecontrollers.EmptyModule" 
     output="false" 
     displayname="EmptyModule" 
     hint="This Component is a place holder for empty module" 
     {
-        private(name="TimbaktooFramework.emptymodule.EmptyModule")
+        private(name="TimbaktooFramework.modulecontrollers.EmptyModule")
         {
             this.parentmodulename = "root";
             this.modulename = "empty";
@@ -14,8 +14,8 @@ component
             this.submodules = arrayNew(1); 
         }
 
-        private(name="TimbaktooFramework.modulecontroller.ModuleController") {
-            TimbaktooFramework.emptymodule.EmptyModule function init() 
+        private(name="TimbaktooFramework.modulecontrollers.ModuleController") {
+            TimbaktooFramework.modulecontrollers.EmptyModule function init() 
             {
                 return this;
             }
