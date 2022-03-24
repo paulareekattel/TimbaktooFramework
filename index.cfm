@@ -1,4 +1,3 @@
-<cfoutput>Application Key:#application.key#</cfoutput>
 <DocType !HTML>
 <html>
     <head>
@@ -39,7 +38,7 @@
         <div id="maindiv"><!--- Main DIV    --->
             <div id="header"></div><!---    Header Div  --->
             <div id="content">
-                
+                <cfoutput>#request.requestedContent#</cfoutput>
             </div><!---   Content Div --->
             <div id="footer"></div><!---    Footer Div  --->    
         </div>        

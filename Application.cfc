@@ -4,23 +4,11 @@ component {
     this.sessionmanagement =  true;
     this.clientmanagement = true;
     this.sessionTimeout = createTimespan(0,0,20,0);
-    this.loginstorage = "session";
+    this.loginstorage = session;
     this.applicationTimeout = createTimespan(2,0,0,0);
 
-    /*  Below is the empty module object which has a Welcome module only    */
-    this.modulesObject = createObject("component", "emptymoduleclass").init();
-    this.helperClassObject = createObject("component", "helperclass").init();
-
-    /*
-        To restrict depth the below regex is used. It only allows 
-        module, 
-        submodule, 
-        subsubmodule,
-        subsubsubmodule,
-        subsubsubsubmodule    
-    */
-    this.moduleDepthValidatorRegex = "^((sub)?|(sub){1,4})module$";
-    
+    this.errorLoggingAndMessagingModuleObject = createObject("component", "TimbaktooFramework.modulecontrollers.ErrorLoggingAndMessagingModule").init();
+        
     application.VALID = 1;
     
     function onApplicationStart() {
@@ -41,15 +29,44 @@ component {
     }
 
     function onRequestStart() {
-        request.key = readKey("request");
+        if(!structKeyExists(request, "key")) {
+            request.key = readKey("request");
+        }
         return application.VALID;
     }
 
+    function setCurrentModule() {
+
+    }
+
     function onRequest(string targetPage) {
-        if(structKeyExists(url, "reloadApp") && listCompare(url.reloadApp, request.key) == 0) {
+        if(structKeyExists(url, "reloadApp") && listCompare(url.reloadApp, request.key) === 0) {
             reloadAppModuleAndAppKey();
         }
-        include targetPage;
+        if
+        (listFindNoCase
+            (
+                application.moduleController.getModules(),
+                application.moduleController.getCurrentModule().getModuleName(), 
+                ","
+            ) > 0 && listFindNoCase
+                    (
+                        application.moduleController.getCurrentModule().getFiles(),
+                        arguments.targetPage,
+                        ","
+                    ) > 0
+        ) 
+        {
+            saveContent variable = "request.requestedContent" {
+                include targetPage;
+            }
+        } else {
+            saveContent variable = "request.requestedContent" {
+                include "/globalview/error.cfm";
+            }
+            
+        }
+        include "index.cfm";
     }
 
     function onRequestEnd() {
@@ -60,37 +77,13 @@ component {
         writeLog(text="#exception.message# - #exception.detail# - #eventname#", file=eventname);
     }
 
-    function getAppModulesObject(struct object, string prefix) {
-        var subPrefix = "";
-        
-        if(prefix == 'module') {
-            subPrefix = 'submodule';
-        } else {
-            subPrefix = 'sub' & prefix;
-        }
-        if(validateModuleDepth(prefix) != application.VALID) {
-            return object;
-        }
-        /* Need to code this
-        for(var i in object) {
-            if(isObject(object[i])) {
-                application[prefix][object[i]] = structNew();
-                application[prefix][object[i]] = getAppModuleObject(object[i], subPrefix);
-            } else {
-                application[prefix][object[i]] = "";
-                application[prefix][object[i]] = object[i];
-            }
-        }*/
-        return application[prefix];
-    }
-
     function reloadAppModuleAndAppKey() {
         try {
-            this.modulesObject = CreateObject("component", "modulesclass").init();
-            this['modules'] = getAppModulesObject(this.modulesObject, 'module');
-            this.key = readKey("application");
+            application.moduleController = CreateObject("component", "TimbaktooFramework.modulecontrollers.ModuleController").init();
+            application.rootModule = application.moduleController.getRootModule();
+            application.moduleController.setCurrentModule(application.rootModule);
         } catch(any error) {
-            this.helperClassObject.errorLoggingAndMessaging(error, getFunctionCalledName());
+            this.errorLoggingAndMessagingModuleObject.errorLoggingAndMessaging(error, getFunctionCalledName());
             rethrow;
         }
         return application.VALID;
@@ -106,7 +99,7 @@ component {
                 default: returnKey = hash("IamPaulAreekattelDefault","SHA-512", "UTF-8", 10);
             }
         } catch(any error) {
-            this.helperClassObject.errorLoggingAndMessaging(error, getFunctionCalledName());
+            this.errorLoggingAndMessagingModuleObject.errorLoggingAndMessaging(error, getFunctionCalledName());
             rethrow;
         }
         return returnKey;                
@@ -117,7 +110,7 @@ component {
         try {
             returnKey = makeSecureCallToServer(keyType);
         } catch(any error) {
-            this.helperClassObject.errorLoggingAndMessaging(error, getFunctionCalledName());
+            this.errorLoggingAndMessagingModuleObject.errorLoggingAndMessaging(error, getFunctionCalledName());
             rethrow;
         }
         return returnKey;
@@ -128,22 +121,9 @@ component {
         try {
             returnKey = getKeyFromServer(keyType);
         } catch(any error) {
-            this.helperClassObject.errorLoggingAndMessaging(error, getFunctionCalledName());
+            this.errorLoggingAndMessagingModuleObject.errorLoggingAndMessaging(error, getFunctionCalledName());
             rethrow;
         }
         return returnKey;
-    }
-
-    function validateModuleDepth(string stringToValidateModuleDepth) {
-        try {
-            var test = reMatch(this.moduleDepthValidatorRegex, stringToValidateModuleDepth);
-            if(isArray(test) && arrayLen(test) > 0) {
-                return !application.VALID;
-            }
-        } catch(any error) {
-            this.helperClassObject.errorLoggingAndMessaging(error, getFunctionCalledName());
-            rethrow;
-        }
-        return application.VALID;
     }
 }

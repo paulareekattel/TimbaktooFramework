@@ -56,5 +56,9 @@ component
             array function getSubmodules() {
                 return this.submodules;
             }
+
+            boolean function isModuleEmpty() {
+                return application.VALID;
+            }
         }
     }
