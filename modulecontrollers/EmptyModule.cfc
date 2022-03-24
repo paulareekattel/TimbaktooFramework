@@ -6,12 +6,15 @@ component
     {
         private(name="TimbaktooFramework.modulecontrollers.EmptyModule")
         {
-            this.parentmodulename = "root";
-            this.modulename = "empty";
-            this.files = "empty.cfm";
-            this.viewPath = "/TimbaktooFramework/emptymodule/view/";
-            this.submodulenames = "";
-            this.submodules = arrayNew(1); 
+            this.parentmodulename="root";
+            this.modulename="empty";
+            this.files="empty.cfm";
+            this.modulePath = "/TimbaktooFramework/modulecontrollers/";
+            this.moduleViewPath = "/TimbaktooFramework/globalview/";
+            this.moduleController = "ModuleController";
+            this.moduleControllerPath = "/TimbaktooFramework/modulecontrollers/";
+            this.submodulenames="";
+            this.submodules=arrayNew(1);
         }
 
         private(name="TimbaktooFramework.modulecontrollers.ModuleController") {
@@ -19,28 +22,38 @@ component
             {
                 return this;
             }
+        }
 
-            string function getParentModuleName() {
-                return this.parentmodulename;
-            }
-
+        public(name="TimbakTooFramework") {        
             string function getModuleName() {
                 return this.modulename;
             }
-
+        
             string function getFiles() {
                 return this.files;
             }
-
-            string function getViewPath() {
-                return this.viewPath;
+    
+            string function getModulePath() {
+                return this.modulePath;
             }
-
+        
+            string function getModuleViewPath() {
+                return this.moduleViewPath;
+            }
+    
+            any function getModuleController() {
+                return this.moduleController;
+            }
+        
+            string function getModuleControllerPath() {
+                return this.moduleControllerPath;
+            }
+        
             string function getSubModuleNames() {
                 return this.submodulenames;
             }
-
-            array function getSubModules() {
+        
+            array function getSubmodules() {
                 return this.submodules;
             }
         }

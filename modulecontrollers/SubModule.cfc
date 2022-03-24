@@ -76,7 +76,7 @@ component name="TimbaktooFramework.modulecontrollers.SubModule" extends="Timbakt
             return this.moduleController;
         }
     
-        string function setModuleControllerPath() {
+        string function getModuleControllerPath() {
             return this.moduleControllerPath;
         }
     

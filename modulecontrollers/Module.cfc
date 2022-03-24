@@ -115,7 +115,7 @@ component name="TimbaktooFramework.modulecontrollers.Module" output="false" {
             return this.moduleController;
         }
     
-        string function setModuleControllerPath() {
+        string function getModuleControllerPath() {
             return this.moduleControllerPath;
         }
     
