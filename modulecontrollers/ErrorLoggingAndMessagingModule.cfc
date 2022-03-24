@@ -1,20 +1,19 @@
-component name="TimbaktooFramework.helpermodules.ErrorLoggingAndMessagingModule" output=false {
-    
-    public TimbaktooFramework.helpermodules.ErrorLoggingAndMessagingModule function init() {
-        this.errorMailModule = createObject("component", "TimbaktooFramework.helpermodules.ErrorMailModule").init();
+component name="TimbaktooFramework.modulecontrollers.ErrorLoggingAndMessagingModule" output=false {
+    this.errorMailModule = createObject("component", "TimbaktooFramework.modulecontrollers.ErrorMailModule").init();
+    public TimbaktooFramework.modulecontrollers.ErrorLoggingAndMessagingModule function init() {
         return this;
     }
 
     public void function errorLoggingAndMessaging
     (
         exception error,
-        string getFunctionCalledName,
+        string fileName,
         cgi cgiObject,
         form formObject,
         url urlObject
     ) 
     {
-        writeLog(text="#error.message# - #error.detail#", file=getFunctionCalledName);
+        writeLog(text="#error.message# - #error.detail#", file=fileName);
     
         savecontent variable="errortext" 
         {
@@ -31,7 +30,7 @@ component name="TimbaktooFramework.helpermodules.ErrorLoggingAndMessagingModule"
             subject="Error: #error.message#", 
             type= "html", 
             body=errorText, 
-            file=getFunctionCalledName
+            file=fileName
         );
         */
     }

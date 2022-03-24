@@ -1,6 +1,6 @@
-component name="TimbaktooFramework.module.SubModule" extends="TimbaktooFramework.module.Module" output=false  {
-    private(name="TimbaktooFramework.modulecontroller.ModuleController") {
-        TimbaktooFramework.module.SubModule function init
+component name="TimbaktooFramework.modulecontrollers.SubModule" extends="TimbaktooFramework.module.Module" output=false  {
+    private(name="TimbaktooFramework.modulecontrollers.ModuleController") {
+        TimbaktooFramework.modulecontrollers.SubModule function init
         (
             parentmodulename="",
             modulename="",

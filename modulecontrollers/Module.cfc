@@ -1,5 +1,5 @@
-component name="TimbaktooFramework.module.Module" output="false" {
-    private(name="TimbaktooFramework.module.Module") {
+component name="TimbaktooFramework.modulecontrollers.Module" output="false" {
+    private(name="TimbaktooFramework.modulecontrollers.Module") {
         this.parentmodulename="";
         this.modulename="";
         this.files="";
@@ -11,9 +11,9 @@ component name="TimbaktooFramework.module.Module" output="false" {
         this.submodules=arrayNew(1);
     }
      
-    private(name="TimbaktooFramework.modulecontroller.ModuleController") {
+    private(name="TimbaktooFramework.modulecontrollers.ModuleController") {
 
-        TimbaktooFramework.module.Module function init
+        TimbaktooFramework.modulecontrollers.Module function init
         (
             parentmodulename="",
             modulename="",
@@ -40,7 +40,7 @@ component name="TimbaktooFramework.module.Module" output="false" {
                 if(isSimpleValue(i) && (!isBoolean(i) && !isDate(i) && !isNumber(i))) {
                     this.submodules[j] 
                     = 
-                    createObject("component", "module.SubModule").init
+                    createObject("component", "TimbaktooFramework.modulecontrollers.SubModule").init
                     (
                         parentmodulename=arguments.modulename;
                         modulename=i,
